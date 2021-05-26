@@ -69,9 +69,16 @@ class Warga extends CI_Controller
 
     public function update()
     {
+        $oldWarga = $this->db->get_where($this->tableWarga, ['id_warga' => $this->uri->segment(4)])->row();
+
+        if ($oldWarga->nik == $this->input->post('nik')) {
+            $isUnique = "";
+        } else {
+            $isUnique = "|is_unique[warga.nik]";
+        }
 
         $this->form_validation->set_rules('nama', 'Nama Warga', 'required');
-        $this->form_validation->set_rules('nik', 'NIK', 'required|is_unique[warga.nik]');
+        $this->form_validation->set_rules('nik', 'NIK', 'required' . $isUnique);
         $this->form_validation->set_rules('birth_place', 'Tempat Lahir', 'required');
         $this->form_validation->set_rules('birth_date', 'Tanggal Lahir', 'required');
         $this->form_validation->set_rules('daging_qurban', 'Daging Qurban', 'required');
