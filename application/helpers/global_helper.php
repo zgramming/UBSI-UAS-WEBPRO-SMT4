@@ -9,7 +9,6 @@ function checkSessionPetugas()
     }
 }
 
-
 function setAngka($nilai)
 {
     list($nilai) = explode("]", str_replace("[>", "", $nilai));
